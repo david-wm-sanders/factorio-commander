@@ -1,0 +1,11 @@
+{
+    "name": "commander",
+    "version": "0.0.1",
+    "title": "Commander",
+    "author": "david-wm-sanders",
+    "contact": "https://github.com/david-wm-sanders/factorio-commander/issues",
+    "homepage": "https://github.com/david-wm-sanders/factorio-commander",
+    "factorio_version": "0.17",
+    "dependencies": ["base >= 0.17.59"],
+    "description": "Provides additional console commands"
+}
