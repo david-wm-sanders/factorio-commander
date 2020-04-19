@@ -2,9 +2,13 @@ local xo = {}
 xo._util = {}
 xo._help = {}
 
+
+-- Configure colours for use in command output
 local failure_color = {1, 0, 0}
 local success_color = {0, 1, 0}
 
+-- HIGH LEVEL INTERNAL UTILITY FUNCTIONS ---------------------------------------
+-- Function: split a string by specified delimeter
 function split(s, delimiter)
     if type(s) ~= "string" then return {} end
     result = {}
@@ -14,6 +18,7 @@ function split(s, delimiter)
     return result
 end
 
+-- XO UTILITY FUNCTIONS --------------------------------------------------------
 function xo._util.get_commands()
   local t = {}
   for k, f in pairs(xo) do
@@ -34,6 +39,7 @@ function xo._util.command_handler(t)
 end
 
 
+-- XO USER FUNCTIONS -----------------------------------------------------------
 xo._help["give"] = "<item> <count>"
 function xo.give(player, args)
   if table_size(args) ~= 2 then
@@ -50,4 +56,6 @@ function xo.give(player, args)
   end
 end
 
+
+-- Return xo to allow control to import this as a module
 return xo
