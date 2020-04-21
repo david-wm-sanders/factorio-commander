@@ -111,7 +111,7 @@ function xo.warpset(player, args)
   player.print("not.implemented.yet", failure_color)
 end
 
-xo._help["warpdel"] = "<name> # Delete a warp destination"
+xo._help["warpdel"] = "<name> # Remove a warp destination"
 function xo.warpdel(player, args)
   -- TODO: delete a warp by name
   player.print("not.implemented.yet", failure_color)
@@ -119,12 +119,41 @@ end
 
 xo._help["tp"] = "<x> <y> <z> # Teleport"
 -- TODO: implement a safe teleport - build island if location is on water, remove natural entities that collide location, etc
-xo._help["sandbox"] = "# Remove player character"
+xo._help["sandbox-on"] = "# Remove player character"
 -- TODO: convert player to sandbox mode
-xo._help["unsandbox"] = "# Create player character"
+xo._help["sandbox-off"] = "# Create player character"
 -- TODO: convert player from sandbox mode
-xo._help["mkzoo"] = "# Build a biter zoo"
+xo._help["make-zoo"] = "# Build a biter zoo"
 -- TODO: make a zoo for biters with cliffs, rock formations, lakes, etc
+-- xo._help["make-patch"] = "# Make a patch of resources"
+xo._help["mine-faster"] = "# Mine faster"
+xo._help["mine-normal"] = "# Mine normally"
+xo._help["craft-faster"] = "# Craft faster"
+xo._help["craft-normal"] = "# Craft normally"
+xo._help["research-finish"] = "# Research all tech"
+xo._help["research-forget"] = "# Forget all researched tech"
+xo._help["railblocks-show"] = "# Show railblocks"
+xo._help["railblocks-hide"] = "# Hide railblocks"
+xo._help["armorup"] = "# Configure power armor"
+xo._help["chartmap-player"] = "# Reveal the map around the player"
+xo._help["chartmap-center"] = "# Reveal the map around the start position"
+xo._help["chartmap-all"] = "# Reveal all of the generated map"
+xo._help["daylight-savings-on"] = "# Enable eternal day"
+xo._help["daylight-savings-off"] = "# Disable eternal day"
+xo._help["gamespeed"] = "<speed> # Set the game speed"
+xo._help["difficulty-normal"] = "# Set the recipe and tech difficulty to normal"
+xo._help["difficulty-expensive"] = "# Set the recipe and tech difficulty to expensive"
+xo._help["pollution-clear"] = "# Clear all pollution"
+xo._help["resource-add"] = "# Add a patch of resources"
+xo._help["resource-del"] = "# Remove patches of resources"
+xo._help["let-there-be-oil"] = "# Add new oil patches"
+xo._help["count-entities"] = "# Count entities"
+xo._help["flush-pipes"] = "# Flush all fluids from pipes, underground pipes, and pumps"
+xo._help["cliffs-on"] = "# Enable cliff generation"
+xo._help["cliffs-off"] = "# Disable cliff generation"
+xo._help["cliffs-del"] = "# Remove all cliffs"
+xo._help["decoratives-be-gone"] = "# Destroy all decoratives"
+xo._help["bitercide"] = "# Kill all biters, bases, and worms"
 
 -- Return xo to allow control to import this as a module
 return xo
