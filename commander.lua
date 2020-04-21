@@ -117,9 +117,14 @@ function xo.warpdel(player, args)
   player.print("not.implemented.yet", failure_color)
 end
 
+xo._help["tp"] = "<x> <y> <z> # Teleport"
+-- TODO: implement a safe teleport - build island if location is on water, remove natural entities that collide location, etc
 xo._help["sandbox"] = "# Remove player character"
+-- TODO: convert player to sandbox mode
 xo._help["unsandbox"] = "# Create player character"
+-- TODO: convert player from sandbox mode
 xo._help["mkzoo"] = "# Build a biter zoo"
+-- TODO: make a zoo for biters with cliffs, rock formations, lakes, etc
 
 -- Return xo to allow control to import this as a module
 return xo
