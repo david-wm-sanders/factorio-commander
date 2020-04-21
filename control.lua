@@ -1,12 +1,12 @@
 xo = require "commander"
 
 function in_table(item, t)
-    for k, v in pairs(t) do
-        if v == item or k == item then
-            return true
-        end
+  for k, v in pairs(t) do
+    if v == item or k == item then
+      return true
     end
-    return false
+  end
+  return false
 end
 
 script.on_load(function()
