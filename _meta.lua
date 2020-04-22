@@ -24,6 +24,7 @@ function _meta.command_handler(t)
   local command_name = t.name
   local player = game.players[t.player_index]
   local args = split(t.parameter, " ")
+  log(string.format("INFO: '%s' ran '/%s %s'", player.name, command_name, t.parameter))
   if in_table(command_name, xo) then
     xo[command_name](player, args)
   end

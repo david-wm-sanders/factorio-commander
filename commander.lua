@@ -1,5 +1,4 @@
 local xo = {}
--- xo._meta = {}
 xo._meta = require "_meta"
 xo._help = {}
 
@@ -8,7 +7,7 @@ xo._help = {}
 local failure_color = {1, 0, 0}
 local success_color = {0, 1, 0}
 local message_color = {0.7, 0.7, 0.7}
-local helping_color = {120, 200, 240}
+local helping_color = {120, 200, 220}
 
 
 -- XO USER FUNCTIONS -----------------------------------------------------------
@@ -22,7 +21,8 @@ end
 
 xo._help["reloadmods"] = "# Reload all mods"
 function xo.reloadmods(player, args)
-  player.print("Reloading all mods...", message_color)
+  log("INFO: 'xo.reloadmods': Reloading mods...")
+  player.print("Reloading mods...", message_color)
   game.reload_mods()
   player.print("All mods reloaded successfully", success_color)
 end
@@ -30,6 +30,7 @@ end
 xo._help["give"] = "<item> <count> # Give player count of item"
 function xo.give(player, args)
   if table_size(args) ~= 2 then
+    log(string.format("WARN: 'xo.give': incorrect parameter count: takes 2, given %i", table_size(args)))
     player.print("Incorrect parameter count", failure_color)
   else
     local item_name = args[1]
