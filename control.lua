@@ -1,4 +1,4 @@
-xo = require "commander"
+xo = require "xo"
 
 function in_table(item, t)
   for k, v in pairs(t) do
