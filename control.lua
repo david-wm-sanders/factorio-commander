@@ -17,7 +17,7 @@ script.on_load(function()
     else
       -- Add the command at its function name
       commands.add_command(command_name, help, xo._meta.command_handler)
-      log(string.format("INFO: Added '%s' command at '/%s' successfully", command_name, command_name))
+      log(string.format("DEBUG: Added '%s' command at '/%s' successfully", command_name, command_name))
     end
   end
 end)
