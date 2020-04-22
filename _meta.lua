@@ -13,6 +13,7 @@ end
 function _meta.get_commands()
   local t = {}
   for k, f in pairs(xo) do
+    log(string.format("DEBUG: (%s) %s: %s", type(f), k, f))
     if type(f) == "function" then
       t[k] = xo._help[k]
     end
