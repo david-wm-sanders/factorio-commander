@@ -1,5 +1,6 @@
 local xo = {}
-xo._meta = {}
+-- xo._meta = {}
+xo._meta = require "_meta"
 xo._help = {}
 
 
@@ -19,27 +20,6 @@ function split(s, delimiter)
   end
   return result
 end
-
--- XO UTILITY FUNCTIONS --------------------------------------------------------
-function xo._meta.get_commands()
-  local t = {}
-  for k, f in pairs(xo) do
-    if type(f) == "function" then
-      t[k] = xo._help[k]
-    end
-  end
-  return t
-end
-
-function xo._meta.command_handler(t)
-  local command_name = t.name
-  local player = game.players[t.player_index]
-  local args = split(t.parameter, " ")
-  if in_table(command_name, xo) then
-    xo[command_name](player, args)
-  end
-end
-
 
 -- XO USER FUNCTIONS -----------------------------------------------------------
 xo._help["xolist"] = "# Lists commands added by commander/xo"
