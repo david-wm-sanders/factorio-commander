@@ -10,16 +10,6 @@ local success_color = {0, 1, 0}
 local message_color = {0.7, 0.7, 0.7}
 local helping_color = {120, 200, 240}
 
--- HIGH LEVEL INTERNAL UTILITY FUNCTIONS ---------------------------------------
--- Function: split a string by specified delimeter
-function split(s, delimiter)
-  if type(s) ~= "string" then return {} end
-  result = {}
-  for match in (s .. delimiter):gmatch("(.-)" .. delimiter) do
-    table.insert(result, match)
-  end
-  return result
-end
 
 -- XO USER FUNCTIONS -----------------------------------------------------------
 xo._help["xolist"] = "# Lists commands added by commander/xo"

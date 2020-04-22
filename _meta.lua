@@ -1,5 +1,15 @@
 local _meta = {}
 
+-- Function: split a string by specified delimeter
+function split(s, delimiter)
+  if type(s) ~= "string" then return {} end
+  result = {}
+  for match in (s .. delimiter):gmatch("(.-)" .. delimiter) do
+    table.insert(result, match)
+  end
+  return result
+end
+
 function _meta.get_commands()
   local t = {}
   for k, f in pairs(xo) do
