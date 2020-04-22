@@ -1,7 +1,6 @@
 local xo = {}
-xo._meta = require "_meta"
 xo._help = {}
-
+xo._meta = require "_meta"
 
 -- Configure colours for use in command output
 local failure_color = {1, 0, 0}
