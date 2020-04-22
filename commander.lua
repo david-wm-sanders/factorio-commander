@@ -1,5 +1,5 @@
 local xo = {}
-xo._util = {}
+xo._meta = {}
 xo._help = {}
 
 
@@ -21,7 +21,7 @@ function split(s, delimiter)
 end
 
 -- XO UTILITY FUNCTIONS --------------------------------------------------------
-function xo._util.get_commands()
+function xo._meta.get_commands()
   local t = {}
   for k, f in pairs(xo) do
     if type(f) == "function" then
@@ -31,7 +31,7 @@ function xo._util.get_commands()
   return t
 end
 
-function xo._util.command_handler(t)
+function xo._meta.command_handler(t)
   local command_name = t.name
   local player = game.players[t.player_index]
   local args = split(t.parameter, " ")
@@ -45,7 +45,7 @@ end
 xo._help["xolist"] = "# Lists commands added by commander/xo"
 function xo.xolist(player, args)
   player.print("commander/xo is adding the following commands:", message_color)
-  for command_name, help in pairs(xo._util.get_commands()) do
+  for command_name, help in pairs(xo._meta.get_commands()) do
     player.print(string.format("/%s %s", command_name, help), helping_color)
   end
 end
