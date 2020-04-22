@@ -14,7 +14,7 @@ function _meta.get_commands()
   local t = {}
   -- First pass for top-level xo commands in order to ensure that they are added first
   for k, v in pairs(xo) do
-    -- If v is a function where name doesn't start with an underscore (i.e. public), form the command
+    -- If v is a function where its name doesn't start with an underscore (i.e. public), form the command
     if type(v) == "function" and not k:find("^_") then
       log(string.format("DEBUG: finding help for '%s' command (function)", k))
       t[k] = xo._help[k]
@@ -22,7 +22,7 @@ function _meta.get_commands()
   end
   -- Second pass for xo submodule commands
   for k, v in pairs(xo) do
-    -- If v is a table, representing a submodule that starts with "xo"
+    -- If v is a table, representing a submodule, where its name starts with "xo"
     if type(v) == "table" and k:find("^xo") then
       for ki, vi in pairs(v) do
         if type(vi) == "function" then
