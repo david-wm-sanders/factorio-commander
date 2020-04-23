@@ -13,23 +13,21 @@ end
 function _meta.get_commands()
   local t = {}
   -- First pass for top-level xo commands in order to ensure that they are added first
-  for k, v in pairs(xo) do
+  for command_name, command in pairs(xo) do
     -- If v is a function where its name doesn't start with an underscore (i.e. public), form the command
-    if type(v) == "function" and not k:find("^_") then
-      log(string.format("DEBUG: finding help for '%s' command (function)", k))
-      t[k] = xo._help[k]
+    if type(command) == "function" and not command_name:find("^_") then
+      log(string.format("DEBUG: found '/%s' command at '%s' (function)", "todo_command_path", command_name))
+      t[command_name] = xo._help[command_name]
     end
   end
   -- Second pass for xo submodule commands
-  for k, v in pairs(xo) do
+  for submodule_name, submodule in pairs(xo) do
     -- If v is a table, representing a submodule, where its name starts with "xo"
-    if type(v) == "table" and k:find("^xo") then
-      for ki, vi in pairs(v) do
-        if type(vi) == "function" then
-          if not k:find("^_") then
-            log(string.format("DEBUG: finding help for '%s.%s' command (function)", k, ki))
-            t[ki] = v._help[ki]
-          end
+    if type(submodule) == "table" and submodule_name:find("^xo") then
+      for command_name, command in pairs(submodule) do
+        if type(command) == "function" and not command_name:find("^_") then
+          log(string.format("DEBUG: found '/%s' command at '%s.%s' (function)", "todo_command_path", submodule_name, command_name))
+          t[command_name] = submodule._help[command_name]
         end
       end
     end
@@ -43,12 +41,17 @@ function _meta.command_handler(t)
   local args = split(t.parameter, " ")
   log(string.format("INFO: '%s' ran '/%s %s'", player.name, command_name, t.parameter))
   if in_table(command_name, xo) then
+    log(string.format("DEBUG: Running '%s' from xo", command_name))
     xo[command_name](player, args)
+    return
   -- TODO: Fix to call functions in xo submodules correctly
   -- TODO: call get_commands, find command in commands or fail, call command if found
   else
     log(string.format("WARN: '/%s' command not mapped properly", command_name))
     player.print(string.format("WARN: '/%s' command not mapped properly", command_name))
+  end
+  for command_name, help in pairs(xo._meta.get_commands()) do
+    log(string.format("DEBUG: %s %s", command_name, help))
   end
 end
 
