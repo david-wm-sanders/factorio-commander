@@ -14,8 +14,8 @@ local helping_color = {120, 200, 220}
 xo._help["xolist"] = "# Lists commands added by commander/xo"
 function xo.xolist(player, args)
   player.print("commander/xo is adding the following commands:", message_color)
-  for command_name, help in pairs(xo._meta.get_commands()) do
-    player.print(string.format("/%s %s", command_name, help), helping_color)
+  for command_name, commandmeta in pairs(xo._meta.get_commands()) do
+    player.print(string.format("/%s %s", command_name, commandmeta.help), helping_color)
   end
 end
 
