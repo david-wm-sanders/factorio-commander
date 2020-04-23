@@ -1,30 +1,25 @@
+_constants = require "_constants"
 local xo = {}
 xo._help = {}
 xo._meta = require "_meta"
 xo.xogive = require "xogive"
 
--- Configure colours for use in command output
-local failure_color = {1, 0, 0}
-local success_color = {0, 1, 0}
-local message_color = {0.7, 0.7, 0.7}
-local helping_color = {120, 200, 220}
-
 
 -- XO USER FUNCTIONS -----------------------------------------------------------
 xo._help["xolist"] = "# Lists commands added by commander/xo"
 function xo.xolist(player, args)
-  player.print("commander/xo is adding the following commands:", message_color)
+  player.print("commander/xo is adding the following commands:", _constants.message_color)
   for command_name, commandmeta in pairs(xo._meta.get_commands()) do
-    player.print(string.format("/%s %s", command_name, commandmeta.help), helping_color)
+    player.print(string.format("/%s %s", command_name, commandmeta.help), _constants.helping_color)
   end
 end
 
 xo._help["reloadmods"] = "# Reload all mods"
 function xo.reloadmods(player, args)
   log("INFO: 'xo.reloadmods': Reloading mods...")
-  player.print("Reloading mods...", message_color)
+  player.print("Reloading mods...", _constants.message_color)
   game.reload_mods()
-  player.print("All mods reloaded successfully", success_color)
+  player.print("All mods reloaded successfully", _constants.success_color)
 end
 
 -- xo._help["give"] = "<item> <count> # Give player count of item"
@@ -47,7 +42,7 @@ end
 
 xo._help["givepack"] = "<packname> [<count>] # Gives player pack(s) by packname"
 function xo.givepack(player, args)
-  player.print("not.implemented.yet", failure_color)
+  player.print("not.implemented.yet", _constants.failure_color)
   -- TODO: create a set of packs that container groupings of items that are commonly used together
   -- example packs: rail: rail, signals, train stops; belt: belt, duct, splitter; pipes: pipe, underground pipe, pump
   -- TODO: match a pack by packname or fail
@@ -59,14 +54,14 @@ end
 
 xo._help["warp"] = "<name> # Warp to a destination created with /warpset"
 function xo.warp(player, args)
-  player.print("not.implemented.yet", failure_color)
+  player.print("not.implemented.yet", _constants.failure_color)
   -- TODO: match a warp by name or fail
   -- TODO: warp player to warp coords
 end
 
 xo._help["warplist"] = "# List destination names created with /warpset"
 function xo.warplist(player, args)
-  player.print("not.implemented.yet", failure_color)
+  player.print("not.implemented.yet", _constants.failure_color)
   -- TODO: list warps
 end
 
@@ -79,13 +74,13 @@ function xo.warpset(player, args)
   ------ TODO: delete entity and build warp:
   -------- TODO: select a random warp blueprint/marker tiling and set tiles in world to build
   ---- TODO: else fail
-  player.print("not.implemented.yet", failure_color)
+  player.print("not.implemented.yet", _constants.failure_color)
 end
 
 xo._help["warpdel"] = "<name> # Remove a warp destination"
 function xo.warpdel(player, args)
   -- TODO: delete a warp by name
-  player.print("not.implemented.yet", failure_color)
+  player.print("not.implemented.yet", _constants.failure_color)
 end
 
 xo._help["tp"] = "<x> <y> <z> # Teleport"
