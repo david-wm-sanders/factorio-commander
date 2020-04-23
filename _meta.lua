@@ -17,7 +17,7 @@ function _meta.get_commands()
     -- If v is a function where its name doesn't start with an underscore (i.e. public), form the command
     if type(command) == "function" and not command_name:find("^_") then
       log(string.format("DEBUG: found '/%s' command at '%s' (function)", "todo_command_path", command_name))
-      command_table[command_name] = {help=xo._help[command_name]}
+      command_table[command_name] = {func=command, help=xo._help[command_name]}
     end
   end
   -- Second pass for xo submodule commands
@@ -27,7 +27,7 @@ function _meta.get_commands()
       for command_name, command in pairs(submodule) do
         if type(command) == "function" and not command_name:find("^_") then
           log(string.format("DEBUG: found '/%s' command at '%s.%s' (function)", "todo_command_path", submodule_name, command_name))
-          command_table[command_name] = {help=submodule._help[command_name]}
+          command_table[command_name] = {func=command, help=submodule._help[command_name]}
         end
       end
     end
@@ -50,8 +50,12 @@ function _meta.command_handler(t)
     log(string.format("WARN: '/%s' command not mapped properly", command_name))
     player.print(string.format("WARN: '/%s' command not mapped properly", command_name))
   end
-  for command_name, help in pairs(xo._meta.get_commands()) do
-    log(string.format("DEBUG: %s %s", command_name, help))
+  -- for command_name, commandmeta in pairs(xo._meta.get_commands()) do
+  --   log(string.format("DEBUG: '%s' (path='/todo', help='%s')", command_name, commandmeta.help))
+  -- end
+  command_table = xo._meta.get_commands()
+  if in_table(command_name, command_table) then
+    command_table[command_name].func(player, args)
   end
 end
 
