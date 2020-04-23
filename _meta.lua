@@ -12,6 +12,7 @@ end
 
 function _meta.get_commands()
   local command_table = {}
+  -- TODO: move list and reloadmods into embedded "core" submodule in xo.lua and then get rid of this top level check mess
   -- First pass for top-level xo commands in order to ensure that they are added first
   for command_name, command in pairs(xo) do
     -- If v is a function where its name doesn't start with an underscore (i.e. public), form the command
@@ -25,6 +26,8 @@ function _meta.get_commands()
     -- If v is a table, representing a submodule, where its name starts with "xo"
     if type(submodule) == "table" and submodule_name:find("^xo") then
       for command_name, command in pairs(submodule) do
+        -- TODO: check in_table(command_name, submodule.command_path): if true - use the submodule.command_path; if false - generate command path as "xo_{command_name}"
+        -- TODO: adapt control.lua etc
         if type(command) == "function" and not command_name:find("^_") then
           log(string.format("DEBUG: found '/%s' command at '%s.%s' (function)", "todo_command_path", submodule_name, command_name))
           command_table[command_name] = {func=command, help=submodule._help[command_name]}
@@ -36,16 +39,18 @@ function _meta.get_commands()
 end
 
 function _meta.command_handler(t)
-  local command_name = t.name
+  -- TODO: move command_table get up here
   local player = game.players[t.player_index]
   local args = split(t.parameter, " ")
+  -- TODO: check for t.name in command_table `in_table(t.name, command_table)`
+  ---- TODO: yes: run function associated with command_name directly
+  ---- TODO: no: find command_table[command_name] where command_table[command_name].pref == t.name
+  local command_name = t.name
   log(string.format("INFO: '%s' ran '/%s %s'", player.name, command_name, t.parameter))
   if in_table(command_name, xo) then
     log(string.format("DEBUG: Running '%s' from xo", command_name))
     xo[command_name](player, args)
     return
-  -- TODO: Fix to call functions in xo submodules correctly
-  -- TODO: call get_commands, find command in commands or fail, call command if found
   else
     log(string.format("WARN: '/%s' command not mapped properly", command_name))
     player.print(string.format("WARN: '/%s' command not mapped properly", command_name))
