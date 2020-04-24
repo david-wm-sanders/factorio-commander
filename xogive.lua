@@ -5,7 +5,7 @@ xogive._cmd = {}
 xogive._cmd["giveitem"] = {path="xo.give.item", help="<item> <count> # Give player count of item"}
 function xogive.giveitem(player, args)
   if table_size(args) ~= 2 then
-    log(string.format("WARN: 'xo.give': incorrect parameter count: takes 2, given %i", table_size(args)))
+    log(string.format("WARN: 'xo.giveitem': incorrect parameter count: takes 2, given %i", table_size(args)))
     player.print("Incorrect parameter count", _constants.failure_color)
   else
     local item_name = args[1]
