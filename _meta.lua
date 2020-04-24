@@ -71,6 +71,7 @@ function _meta.command_handler(t)
     -- The command_path default was used, break it up and call xo[submodule_name][command_name](player, args)
     player.print(string.format("fix.this.quick: need to call through here properly somehow", command_name))
   else
+    -- TODO: attempt to find the the command in the command_table by its path not its name
     log(string.format("ERROR: no command named '%s' in command_table", command_name))
     player.print(string.format("ERROR: no command named '%s' in command_table", command_name), _constants.failure_color)
   end
