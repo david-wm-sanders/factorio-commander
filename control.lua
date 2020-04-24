@@ -14,11 +14,11 @@ script.on_load(function()
   -- Attempt to safely add all mod commands
   for command_name, commandmeta in pairs(xo._meta.command_table) do
     if in_table(command_name, commands.commands) or in_table(command_name, commands.game_commands) then
-      log(string.format("ERROR: Unable to add '%s' command is it exists already", command_name))
+      log(string.format("ERROR: Unable to add '/%s' command is it exists already", command_name))
     else
       -- Add the command at its function name
-      commands.add_command(command_name, commandmeta.help, xo._meta.command_handler)
-      log(string.format("DEBUG: Added '%s' command at '/%s' successfully", command_name, command_name))
+      commands.add_command(commandmeta.path, commandmeta.help, xo._meta.command_handler)
+      log(string.format("INFO: Added '/%s' command from '%s.%s' successfully", commandmeta.path, "todo_submodule_path", command_name))
     end
   end
 end)

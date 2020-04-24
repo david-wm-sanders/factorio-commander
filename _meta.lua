@@ -1,3 +1,4 @@
+_constants = require "_constants"
 local _meta = {}
 _meta.command_table = {}
 
@@ -64,7 +65,14 @@ function _meta.command_handler(t)
   --   log(string.format("DEBUG: '%s' (path='/todo', help='%s')", command_name, commandmeta.help))
   -- end
   if in_table(command_name, xo._meta.command_table) then
+    -- Run directly as specified command_path directly maps function name
     xo._meta.command_table[command_name].func(player, args)
+  elseif command_name:find("^xo_") then
+    -- The command_path default was used, break it up and call xo[submodule_name][command_name](player, args)
+    player.print(string.format("fix.this.quick: need to call through here properly somehow", command_name))
+  else
+    log(string.format("ERROR: no command named '%s' in command_table", command_name))
+    player.print(string.format("ERROR: no command named '%s' in command_table", command_name), _constants.failure_color)
   end
 end
 
