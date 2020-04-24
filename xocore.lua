@@ -6,7 +6,7 @@ xocore._cmd["xolist"] = {path="xolist", help="# Lists commands added by commande
 function xocore.xolist(player, args)
   player.print("commander/xo is adding the following commands:", _constants.message_color)
   for command_name, commandmeta in pairs(xo._meta.command_table) do
-    player.print(string.format("[%s.%s] /%s %s", "todo_submodule_name", command_name, commandmeta.path, commandmeta.help), _constants.helping_color)
+    player.print(string.format("[%s.%s] /%s %s", commandmeta.mod, command_name, commandmeta.path, commandmeta.help), _constants.helping_color)
   end
 end
 

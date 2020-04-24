@@ -18,7 +18,7 @@ script.on_load(function()
     else
       -- Add the command at its function name
       commands.add_command(commandmeta.path, commandmeta.help, xo._meta.command_handler)
-      log(string.format("INFO: Added '/%s' command from '%s.%s' successfully", commandmeta.path, "todo_submodule_path", command_name))
+      log(string.format("INFO: Added '/%s' command from '%s.%s' successfully", commandmeta.path, commandmeta.mod, command_name))
     end
   end
 end)

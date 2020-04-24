@@ -42,7 +42,7 @@ function _meta.load_commands()
             end
             -- TODO: adapt control.lua etc
             log(string.format("INFO: loaded '/%s' command from '%s.%s' (function)", _path, submodule_name, command_name))
-            _meta.command_table[command_name] = {path=_path, func=command, help=_help}
+            _meta.command_table[command_name] = {mod=submodule_name, path=_path, func=command, help=_help}
           else
             log(string.format("WARN: did not load '%s.%s' as it is not marked as a command", submodule_name, command_name))
           end
