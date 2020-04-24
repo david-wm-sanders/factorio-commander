@@ -22,7 +22,7 @@ function _meta.load_commands()
         -- command if function and function name doesn't start with an underscore (i.e. public)
         if type(command) == "function" and not command_name:find("^_") then
           log(string.format("DEBUG: found '/%s' command at '%s.%s' (function)", "todo_command_path", submodule_name, command_name))
-          _meta.command_table[command_name] = {func=command, help=submodule._help[command_name]}
+          _meta.command_table[command_name] = {func=command, help=submodule._cmd[command_name]}
         end
       end
     end

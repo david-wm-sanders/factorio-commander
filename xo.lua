@@ -1,6 +1,6 @@
 _constants = require "_constants"
 local xo = {}
-xo._help = {}
+xo._cmd = {}
 xo._meta = require "_meta"
 xo.xocore = require "xocore"
 xo.xogive = require "xogive"

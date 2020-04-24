@@ -1,8 +1,8 @@
 _constants = require "_constants"
 local xocore = {}
-xocore._help = {}
+xocore._cmd = {}
 
-xocore._help["xolist"] = "# Lists commands added by commander/xo"
+xocore._cmd["xolist"] = "# Lists commands added by commander/xo"
 function xocore.xolist(player, args)
   player.print("commander/xo is adding the following commands:", _constants.message_color)
   for command_name, commandmeta in pairs(xo._meta.command_table) do
@@ -10,7 +10,7 @@ function xocore.xolist(player, args)
   end
 end
 
-xocore._help["reloadmods"] = "# Reload all mods"
+xocore._cmd["reloadmods"] = "# Reload all mods"
 function xocore.reloadmods(player, args)
   log("INFO: 'xo.reloadmods': Reloading mods...")
   player.print("Reloading mods...", _constants.message_color)

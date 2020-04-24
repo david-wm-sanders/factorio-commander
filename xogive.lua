@@ -1,8 +1,8 @@
 _constants = require "_constants"
 local xogive = {}
-xogive._help = {}
+xogive._cmd = {}
 
-xogive._help["give"] = "<item> <count> # Give player count of item"
+xogive._cmd["give"] = "<item> <count> # Give player count of item"
 function xogive.give(player, args)
   if table_size(args) ~= 2 then
     log(string.format("WARN: 'xo.give': incorrect parameter count: takes 2, given %i", table_size(args)))
@@ -20,7 +20,7 @@ function xogive.give(player, args)
   end
 end
 
-xogive._help["givepack"] = "<packname> [<count>] # Gives player pack(s) by packname"
+xogive._cmd["givepack"] = "<packname> [<count>] # Gives player pack(s) by packname"
 function xogive.givepack(player, args)
   player.print("not.implemented.yet", _constants.failure_color)
   -- TODO: create a set of packs that container groupings of items that are commonly used together
