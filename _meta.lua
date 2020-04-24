@@ -23,24 +23,25 @@ function _meta.load_commands()
             local submodule_cmd = submodule._cmd[command_name]
             -- Setup default _help and _path for command_name
             local _help = "# no.help.is.available"
-            local _path = string.format("xo.%s.%s", submodule_name, command_name)
+            local _path = string.format("xo_%s.%s", submodule_name, command_name)
             -- TODO: get rid of this string check eventually by requiring all commands have ._cmd = {help=x, [path=y]}
             if type(submodule_cmd) == "string" then
               -- Use the string as the command help
               _help = submodule_cmd
             elseif type(submodule_cmd) == "table" then
-              log(string.format("!!! %s._cmd['%s'] is a table", submodule_name, command_name))
+              -- log(string.format("!!! %s._cmd['%s'] is a table", submodule_name, command_name)) -- DEBUG
+              -- if help is set for submodule_cmd, overwrite default _help
               if in_table("help", submodule_cmd) then
                 _help = submodule_cmd.help
               end
+              -- if path is set for submodule_cmd, overwrite default _path
+              if in_table("path", submodule_cmd) then
+                _path = submodule_cmd.path
+              end
             end
-            -- if type(submodule._cmd[])
-            ---- TODO: if table attempt to get help and path params and put in command table
-            ------ TODO: check in_table(command_name, submodule.command_path): if true - use the submodule.command_path; if false - generate command path as "xo_{module}.{command_name}"
-            ------ TODO: adapt control.lua etc
-            ---- TODO: if string treat it as help and create the path as 'xo_'
-            log(string.format("INFO: loaded '/%s' command at '%s.%s' (function)", "todo_command_path", submodule_name, command_name))
-            _meta.command_table[command_name] = {func=command, help=_help}
+            -- TODO: adapt control.lua etc
+            log(string.format("INFO: loaded '/%s' command from '%s.%s' (function)", _path, submodule_name, command_name))
+            _meta.command_table[command_name] = {path=_path, func=command, help=_help}
           else
             log(string.format("WARN: did not load '%s.%s' as it is not marked as a command", submodule_name, command_name))
           end
