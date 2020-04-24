@@ -40,9 +40,8 @@ function _meta.load_commands()
                 _path = submodule_cmd.path
               end
             end
-            -- TODO: adapt control.lua etc
             log(string.format("INFO: loaded '/%s' command from '%s.%s' (function)", _path, submodule_name, command_name))
-            _meta.command_table[command_name] = {mod=submodule_name, path=_path, func=command, help=_help}
+            _meta.command_table[submodule_name.."."..command_name] = {mod=submodule_name, path=_path, func=command, help=_help}
           else
             log(string.format("WARN: did not load '%s.%s' as it is not marked as a command", submodule_name, command_name))
           end
@@ -54,22 +53,24 @@ end
 
 function _meta.command_handler(t)
   local player = game.players[t.player_index]
+  local command_path = t.name
   local args = split(t.parameter, " ")
-  -- TODO: check for t.name in command_table `in_table(t.name, command_table)`
-  ---- TODO: yes: run function associated with command_name directly
-  ---- TODO: no: find command_table[command_name] where command_table[command_name].pref == t.name
-  local command_name = t.name
-  log(string.format("INFO: '%s' ran '/%s %s'", player.name, command_name, t.parameter))
 
-  -- for command_name, commandmeta in pairs(xo._meta.command_table) do
-  --   log(string.format("DEBUG: '%s' (path='/todo', help='%s')", command_name, commandmeta.help))
-  -- end
+  log(string.format("INFO: '%s' ran '/%s %s'", player.name, command_path, t.parameter))
+  -- Local ref _meta.command_table and construct a command_path to command_name map
+  local _ct = xo._meta.command_table
+  local _command_name_by_path = {}
+  for command_name, commandmeta in pairs(_ct) do
+    _command_name_by_path[commandmeta.path] = command_name
+  end
+  -- find the correct fully-qualified command_name (submodule_name.command_name)
+  local command_name = _command_name_by_path[command_path]
+  -- log(serpent.dump(_command_name_by_path))
+  -- log("DEBUG: command_name="..command_name)
+
   if in_table(command_name, xo._meta.command_table) then
     -- Run directly as specified command_path directly maps function name
     xo._meta.command_table[command_name].func(player, args)
-  elseif command_name:find("^xo_") then
-    -- The command_path default was used, break it up and call xo[submodule_name][command_name](player, args)
-    player.print(string.format("fix.this.quick: need to call through here properly somehow", command_name))
   else
     -- TODO: attempt to find the the command in the command_table by its path not its name
     log(string.format("ERROR: no command named '%s' in command_table", command_name))
