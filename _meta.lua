@@ -20,17 +20,19 @@ function _meta.load_commands()
         -- command if function and function name doesn't start with an underscore (i.e. public) and function has submodule._cmd table entry
         if type(command) == "function" and not command_name:find("^_") then
           if in_table(command_name, submodule._cmd) then
-            -- local submodule_cmd = submodule._cmd[command_name]
-            ---- TODO: check to see if submodule._cmd[command_name] is a table or string
+            local submodule_cmd = submodule._cmd[command_name]
             -- Setup default _help and _path for command_name
             local _help = "# no.help.is.available"
             local _path = string.format("xo.%s.%s", submodule_name, command_name)
-            if type(submodule._cmd[command_name]) == "string" then
+            -- TODO: get rid of this string check eventually by requiring all commands have ._cmd = {help=x, [path=y]}
+            if type(submodule_cmd) == "string" then
               -- Use the string as the command help
-              _help = submodule._cmd[command_name]
-            elseif type(submodule._cmd[command_name]) == "table" then
+              _help = submodule_cmd
+            elseif type(submodule_cmd) == "table" then
               log(string.format("!!! %s._cmd['%s'] is a table", submodule_name, command_name))
-              -- if in
+              if in_table("help", submodule_cmd) then
+                _help = submodule_cmd.help
+              end
             end
             -- if type(submodule._cmd[])
             ---- TODO: if table attempt to get help and path params and put in command table
