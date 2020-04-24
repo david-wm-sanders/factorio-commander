@@ -1,4 +1,5 @@
 local _meta = {}
+_meta.command_table = {}
 
 -- Function: split a string by specified delimeter
 function split(s, delimiter)
@@ -10,8 +11,7 @@ function split(s, delimiter)
   return result
 end
 
-function _meta.get_commands()
-  local command_table = {}
+function _meta.load_commands()
   -- Find commands
   for submodule_name, submodule in pairs(xo) do
     -- submodule if a table with its name starting with "xo"
@@ -22,16 +22,14 @@ function _meta.get_commands()
         -- command if function and function name doesn't start with an underscore (i.e. public)
         if type(command) == "function" and not command_name:find("^_") then
           log(string.format("DEBUG: found '/%s' command at '%s.%s' (function)", "todo_command_path", submodule_name, command_name))
-          command_table[command_name] = {func=command, help=submodule._help[command_name]}
+          _meta.command_table[command_name] = {func=command, help=submodule._help[command_name]}
         end
       end
     end
   end
-  return command_table
 end
 
 function _meta.command_handler(t)
-  -- TODO: move command_table get up here
   local player = game.players[t.player_index]
   local args = split(t.parameter, " ")
   -- TODO: check for t.name in command_table `in_table(t.name, command_table)`
@@ -40,12 +38,11 @@ function _meta.command_handler(t)
   local command_name = t.name
   log(string.format("INFO: '%s' ran '/%s %s'", player.name, command_name, t.parameter))
 
-  -- for command_name, commandmeta in pairs(xo._meta.get_commands()) do
+  -- for command_name, commandmeta in pairs(xo._meta.command_table) do
   --   log(string.format("DEBUG: '%s' (path='/todo', help='%s')", command_name, commandmeta.help))
   -- end
-  command_table = xo._meta.get_commands()
-  if in_table(command_name, command_table) then
-    command_table[command_name].func(player, args)
+  if in_table(command_name, xo._meta.command_table) then
+    xo._meta.command_table[command_name].func(player, args)
   end
 end
 
