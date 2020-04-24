@@ -2,17 +2,9 @@ _constants = require "_constants"
 local xo = {}
 xo._help = {}
 xo._meta = require "_meta"
+xo.xocore = require "xocore"
 xo.xogive = require "xogive"
 
-
--- XO USER FUNCTIONS -----------------------------------------------------------
-xo._help["xolist"] = "# Lists commands added by commander/xo"
-function xo.xolist(player, args)
-  player.print("commander/xo is adding the following commands:", _constants.message_color)
-  for command_name, commandmeta in pairs(xo._meta.get_commands()) do
-    player.print(string.format("/%s %s", command_name, commandmeta.help), _constants.helping_color)
-  end
-end
 
 xo._help["reloadmods"] = "# Reload all mods"
 function xo.reloadmods(player, args)
@@ -22,23 +14,6 @@ function xo.reloadmods(player, args)
   player.print("All mods reloaded successfully", _constants.success_color)
 end
 
--- xo._help["give"] = "<item> <count> # Give player count of item"
--- function xo.give(player, args)
---   if table_size(args) ~= 2 then
---     log(string.format("WARN: 'xo.give': incorrect parameter count: takes 2, given %i", table_size(args)))
---     player.print("Incorrect parameter count", failure_color)
---   else
---     local item_name = args[1]
---     local count = args[2]
---     if game.item_prototypes[item_name] ~= nil then
---       player.insert({name=item_name, count=count})
---       player.print(string.format("%i %s issued", count, item_name), success_color)
---     -- TODO: add elseif that checks an item shortcut mapping
---     else
---       player.print(string.format("Item '%s' doesn't exist as primitive or shortcut", item_name), failure_color)
---     end
---   end
--- end
 
 xo._help["givepack"] = "<packname> [<count>] # Gives player pack(s) by packname"
 function xo.givepack(player, args)
