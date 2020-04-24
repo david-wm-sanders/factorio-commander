@@ -20,4 +20,16 @@ function xogive.give(player, args)
   end
 end
 
+xogive._help["givepack"] = "<packname> [<count>] # Gives player pack(s) by packname"
+function xogive.givepack(player, args)
+  player.print("not.implemented.yet", _constants.failure_color)
+  -- TODO: create a set of packs that container groupings of items that are commonly used together
+  -- example packs: rail: rail, signals, train stops; belt: belt, duct, splitter; pipes: pipe, underground pipe, pump
+  -- TODO: match a pack by packname or fail
+  -- TODO: get count of items in pack already in player inventory
+  -- TODO: calculate item_diff as item_pack_count - item_inventory_count
+  -- TODO: if item_diff > 0, add item_diff pack items to player inventory
+  -- TODO: output stats on what was added
+end
+
 return xogive

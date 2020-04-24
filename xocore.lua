@@ -10,4 +10,12 @@ function xocore.xolist(player, args)
   end
 end
 
+xocore._help["reloadmods"] = "# Reload all mods"
+function xocore.reloadmods(player, args)
+  log("INFO: 'xo.reloadmods': Reloading mods...")
+  player.print("Reloading mods...", _constants.message_color)
+  game.reload_mods()
+  player.print("All mods reloaded successfully", _constants.success_color)
+end
+
 return xocore
