@@ -10,7 +10,7 @@ function xocore.xolist(player, args)
   end
 end
 
-xocore._cmd["reloadmods"] = {path="reloadmods", help="# Reload all mods"}
+xocore._cmd["reloadmods"] = {path="xoreload", help="# Reload all mods (including, obvs, commander/xo)"}
 function xocore.reloadmods(player, args)
   log("INFO: 'xocore.reloadmods': Reloading mods...")
   player.print("Reloading mods...", _constants.message_color)
